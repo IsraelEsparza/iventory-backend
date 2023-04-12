@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1")
 public class CategoryRestController {
+
+    /**
+     * List all Categories
+     */
     @Autowired
     private ICategoryService service;
     @GetMapping("/categories")
@@ -18,15 +22,37 @@ public class CategoryRestController {
         return response;
     }
 
+    /**
+     * Search Cayegory by id
+     * @param id
+     * @return
+     */
     @GetMapping("/categories/{id}")
     public ResponseEntity<CategoryResponseRest> searchCategorybyId(@PathVariable Long id){
         ResponseEntity<CategoryResponseRest> response = service.searchById(id);
         return response;
     }
 
+    /**
+     * Save Categories
+     * @param category
+     * @return
+     */
     @PostMapping("/categories")
     public ResponseEntity<CategoryResponseRest> save(@RequestBody Category category){
         ResponseEntity<CategoryResponseRest> response = service.save(category);
+        return response;
+    }
+
+    /**
+     * Update Category
+     * @param category
+     * @param id
+     * @return
+     */
+    @PutMapping("/categories/{id}")
+    public ResponseEntity<CategoryResponseRest> update(@RequestBody Category category, @PathVariable Long id){
+        ResponseEntity<CategoryResponseRest> response = service.update(category, id);
         return response;
     }
 
